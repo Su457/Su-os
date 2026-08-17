@@ -1,4 +1,4 @@
-import { LearningPage } from "@/components/learning/learning-page";
+import { LearningPage } from "@/modules/learning/components/learning-page";
 
 export default function Page() {
   return <LearningPage/>;
