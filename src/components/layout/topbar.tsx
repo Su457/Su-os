@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/ui/icon";
-import { navigation } from "@/lib/mock-data";
+import { navigation } from "@/lib/navigation";
 
 export function Topbar() {
   const pathname = usePathname();
