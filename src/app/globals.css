@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+:root {
+  --background: #070910;
+  --surface: rgba(15, 18, 30, 0.54);
+  --surface-high: rgba(25, 29, 45, 0.66);
+  --border: rgba(255, 255, 255, 0.12);
+  --foreground: #f7f8ff;
+  --muted: #9ba2b4;
+  --primary: #9c8cff;
+  --primary-soft: rgba(156, 140, 255, 0.16);
+  --success: #72e6c0;
+  --glass-blur: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 68% -10%, rgba(114, 94, 255, 0.2), transparent 35rem),
+    radial-gradient(circle at 95% 48%, rgba(55, 191, 255, 0.1), transparent 28rem),
+    radial-gradient(circle at 16% 88%, rgba(113, 230, 192, 0.08), transparent 26rem),
+    linear-gradient(145deg, #06080e 0%, #0a0c15 48%, #080a12 100%);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  isolation: isolate;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  inset: -20%;
+  background:
+    radial-gradient(circle at 23% 20%, rgba(117, 86, 255, 0.2) 0 7%, transparent 25%),
+    radial-gradient(circle at 78% 23%, rgba(52, 180, 255, 0.15) 0 6%, transparent 24%),
+    radial-gradient(circle at 64% 82%, rgba(103, 225, 190, 0.11) 0 5%, transparent 22%);
+  filter: blur(42px);
+  animation: ambient-drift 18s ease-in-out infinite alternate;
+}
+
+body::after {
+  inset: 0;
+  opacity: 0.22;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 86%);
+}
+
+@keyframes ambient-drift {
+  from { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+  to { transform: translate3d(2%, 1.5%, 0) scale(1.06); }
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  color: white;
+  background: rgba(155, 135, 245, 0.55);
+}
+
+@layer components {
+  .card {
+    position: relative;
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 38%),
+      linear-gradient(155deg, rgba(20, 24, 38, 0.72), rgba(12, 15, 25, 0.48));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.025),
+      0 22px 55px rgba(0, 0, 0, 0.2),
+      0 2px 8px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+    border-radius: 1.55rem;
+  }
+
+  .card-hover {
+    transition: border-color 220ms ease, transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  }
+
+  .card-hover:hover {
+    border-color: rgba(190, 182, 255, 0.3);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
+      linear-gradient(155deg, rgba(28, 31, 49, 0.78), rgba(16, 19, 31, 0.58));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.17), 0 26px 65px rgba(0, 0, 0, 0.28), 0 0 40px rgba(128, 106, 255, 0.06);
+    transform: translateY(-3px) scale(1.005);
+  }
+
+  .glass-nav,
+  .glass-bar,
+  .glass-dock {
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 38%),
+      rgba(12, 15, 25, 0.56);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(34px) saturate(160%);
+    -webkit-backdrop-filter: blur(34px) saturate(160%);
+  }
+
+  .glass-nav {
+    border-radius: 1.75rem;
+  }
+
+  .glass-bar {
+    border-radius: 1.15rem;
+  }
+
+  .glass-dock {
+    border-radius: 1.65rem;
+  }
+
+  .glass-control {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 8px 24px rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .primary-button {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #b0a4ff, #806cff 58%, #7159ee);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 12px 34px rgba(115, 88, 255, 0.3);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  }
+
+  .primary-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.24), transparent 66%);
+    transform: translateX(-120%);
+    transition: transform 480ms ease;
+  }
+
+  .primary-button:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 16px 42px rgba(115, 88, 255, 0.38);
+  }
+
+  .primary-button:hover::after {
+    transform: translateX(120%);
+  }
+
+  .nav-active {
+    border: 1px solid rgba(184, 171, 255, 0.13);
+    background: linear-gradient(90deg, rgba(154, 135, 255, 0.2), rgba(154, 135, 255, 0.07));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 8px 24px rgba(74, 52, 164, 0.1);
+  }
+
+  .eyebrow {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card,
+  .glass-nav,
+  .glass-bar,
+  .glass-dock,
+  .glass-control {
+    background-color: rgba(16, 19, 30, 0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
