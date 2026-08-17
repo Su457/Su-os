@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { AppShell } from "@/components/layout/app-shell";
-import { SuOsStoreProvider } from "@/lib/store/su-os-store";
+import { AppShell } from "@/shared/components/layout/app-shell";
+import { SuOsStoreProvider } from "@/store/su-os-store";
 
 export const metadata: Metadata = {
   title: { default: "Su OS", template: "%s · Su OS" },

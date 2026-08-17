@@ -1,4 +1,4 @@
-import { TodayPage } from "@/components/today/today-page";
+import { TodayPage } from "@/modules/today/components/today-page";
 
 export default function Page() {
   return <TodayPage />;
