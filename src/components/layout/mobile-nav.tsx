@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Icon } from "@/components/ui/icon";
-import { mobilePrimaryNavigation, navigation } from "@/lib/mock-data";
+import { mobilePrimaryNavigation, navigation } from "@/lib/navigation";
 
 export function MobileNav() {
   const pathname = usePathname();

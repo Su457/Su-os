@@ -1,4 +1,6 @@
-"use client";
+export { DashboardV2 as Dashboard } from "./dashboard-v2";
+
+/* v0.1 implementation retained temporarily for reference.
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -70,3 +72,4 @@ export function Dashboard() {
     </div>
   );
 }
+*/

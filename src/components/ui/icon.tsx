@@ -1,4 +1,4 @@
-import type { IconName } from "@/lib/mock-data";
+import type { IconName } from "@/lib/navigation";
 
 type IconProps = { name: IconName; size?: number; className?: string; strokeWidth?: number };
 
@@ -25,6 +25,20 @@ const paths: Record<IconName, React.ReactNode> = {
   database: <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></>,
   palette: <><circle cx="12" cy="12" r="9"/><circle cx="8" cy="9" r="1" fill="currentColor"/><circle cx="12" cy="7" r="1" fill="currentColor"/><circle cx="16" cy="9" r="1" fill="currentColor"/><path d="M15 17c0-1.1.9-2 2-2h1.5"/></>,
   send: <><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></>,
+  trash: <><path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6"/></>,
+  edit: <><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></>,
+  star: <path d="m12 2 3 6 6.5.9-4.7 4.6 1.1 6.5-5.9-3.1L6 21l1.1-6.5-4.7-4.6L9 8Z"/>,
+  archive: <><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v11h14V9M10 13h4"/></>,
+  inbox: <><path d="M4 4h16v16H4Z"/><path d="M4 14h4l2 3h4l2-3h4"/></>,
+  filter: <path d="M4 5h16l-6 7v5l-4 2v-7Z"/>,
+  play: <path d="m8 5 11 7-11 7Z"/>,
+  pause: <><path d="M9 5v14M15 5v14"/></>,
+  download: <><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></>,
+  upload: <><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 21h14"/></>,
+  refresh: <><path d="M20 7h-5V2"/><path d="M20 7a8 8 0 1 0 1 6"/></>,
+  chevronUp: <path d="m6 15 6-6 6 6"/>,
+  chevronDown: <path d="m6 9 6 6 6-6"/>,
+  x: <path d="M6 6l12 12M18 6 6 18"/>,
 };
 
 export function Icon({ name, size = 20, className, strokeWidth = 1.8 }: IconProps) {

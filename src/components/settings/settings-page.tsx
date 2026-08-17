@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Icon } from "@/components/ui/icon";
-import type { IconName } from "@/lib/mock-data";
+import type { IconName } from "@/lib/navigation";
 
 const groups: { icon: IconName; title: string; description: string; toggle?: boolean }[] = [
   { icon: "palette", title: "外观与主题", description: "深色主题 · 紫色强调色" },

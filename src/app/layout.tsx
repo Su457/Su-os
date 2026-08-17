@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AppShell } from "@/components/layout/app-shell";
+import { SuOsStoreProvider } from "@/lib/store/su-os-store";
 
 export const metadata: Metadata = {
   title: { default: "Su OS", template: "%s · Su OS" },
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN">
       <body>
-        <AppShell>{children}</AppShell>
+        <SuOsStoreProvider>
+          <AppShell>{children}</AppShell>
+        </SuOsStoreProvider>
       </body>
     </html>
   );
