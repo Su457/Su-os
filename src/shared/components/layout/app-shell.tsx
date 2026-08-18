@@ -8,7 +8,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <div className="min-w-0">
         <Topbar />
-        <main className="mx-auto max-w-[1480px] px-4 pb-28 pt-6 sm:px-6 md:px-8 md:pb-10 md:pt-8 xl:px-10">{children}</main>
+        <main className="mx-auto max-w-[1480px] px-4 pb-28 pt-6 sm:px-6 md:px-8 md:pb-10 md:pt-6 xl:px-10">{children}</main>
       </div>
       <MobileNav />
     </div>
