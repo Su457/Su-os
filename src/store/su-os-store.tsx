@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
+import { createContext, useContext, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { parseImportedData } from "@/data/backup/validation";
 import { createDefaultData, createEmptyData } from "@/data/local/default-data";
@@ -16,6 +16,18 @@ import type { ImportResult, SuOsStoreValue } from "./store-types";
 const SuOsStoreContext = createContext<SuOsStoreValue | null>(null);
 const subscribeToHydration = () => () => undefined;
 
+function createInitialStoreState(): { data: SuOsData; persistenceBlocked: boolean } {
+  if (typeof window === "undefined") {
+    return { data: createEmptyData(), persistenceBlocked: true };
+  }
+
+  const snapshot = localSnapshotRepository.load();
+  return {
+    data: snapshot.status === "loaded" ? snapshot.data : createDefaultData(),
+    persistenceBlocked: snapshot.status === "invalid" || snapshot.status === "unavailable",
+  };
+}
+
 function makeId(prefix: string): string {
   const random = typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
@@ -25,14 +37,14 @@ function makeId(prefix: string): string {
 
 export function SuOsStoreProvider({ children }: { children: ReactNode }) {
   const hydrated = useSyncExternalStore(subscribeToHydration, () => true, () => false);
-  const [data, setData] = useState<SuOsData>(() => (
-    typeof window === "undefined"
-      ? createEmptyData()
-      : localSnapshotRepository.load() ?? createDefaultData()
-  ));
+  const [initialState] = useState(createInitialStoreState);
+  const [data, setData] = useState<SuOsData>(initialState.data);
+  const persistenceBlocked = useRef(initialState.persistenceBlocked);
 
   useEffect(() => {
-    if (hydrated) localSnapshotRepository.save(data);
+    if (hydrated && !persistenceBlocked.current && !localSnapshotRepository.save(data)) {
+      persistenceBlocked.current = true;
+    }
   }, [data, hydrated]);
 
   function addTask(input: TaskInput): string {
@@ -275,7 +287,9 @@ export function SuOsStoreProvider({ children }: { children: ReactNode }) {
 
   function importData(text: string): ImportResult {
     try {
-      setData(parseImportedData(text));
+      const importedData = parseImportedData(text);
+      persistenceBlocked.current = false;
+      setData(importedData);
       return { ok: true };
     } catch (error) {
       return {
@@ -286,10 +300,12 @@ export function SuOsStoreProvider({ children }: { children: ReactNode }) {
   }
 
   function resetDemoData(): void {
+    persistenceBlocked.current = false;
     setData(createDefaultData());
   }
 
   function clearAllData(): void {
+    persistenceBlocked.current = !localSnapshotRepository.clear();
     setData(createEmptyData());
   }
 
