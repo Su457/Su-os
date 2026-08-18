@@ -1,10 +1,14 @@
 import type { NextConfig } from "next";
 
+const allowedDevOrigins = process.env.SU_OS_DEV_ORIGINS
+  ?.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   agentRules: false,
-  // Allow Android devices on the current LAN to load Next.js dev assets.
-  allowedDevOrigins: ["10.183.33.39"],
+  ...(allowedDevOrigins?.length ? { allowedDevOrigins } : {}),
 };
 
 export default nextConfig;
